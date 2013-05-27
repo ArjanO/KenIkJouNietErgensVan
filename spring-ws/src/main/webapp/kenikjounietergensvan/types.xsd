@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://www.dare2date.com/schemas/kenikjounietergensvan/types"
+        xmlns:tns="http://www.dare2date.com/schemas/kenikjounietergensvan/types"
+        elementFormDefault="qualified">
+
+    <complexType name="CalculateResult">
+        <all>
+            <element name="message" type="string"/>
+        </all>
+    </complexType>
+
+    <complexType name="CalculateInput">
+        <all>
+			<element name="username" type="string" minOccurs="1" maxOccurs="1"/>
+        </all>
+    </complexType>
+</schema>
