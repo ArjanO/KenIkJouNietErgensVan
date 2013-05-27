@@ -1,4 +1,4 @@
-# Ken ik jou niet ergens van
+# Ken ik jou niet ergens van?
 
 Services for the Dare2Date casus of the HAN minor Advanced Programming course Advanced Software Engineering. This services finds out if you and a other person may know each other from a event, school or work.
 
@@ -11,6 +11,13 @@ Services for the Dare2Date casus of the HAN minor Advanced Programming course Ad
 **Joëll Portier**
 
 + [https://github.com/Sjoel](https://github.com/Sjoel)
+
+## Building with maven notes
+
+If it fails on javax.activation:
+
+1.	Download the file manually: http://mirrors.ibiblio.org/maven2/javax/xml/bind/activation/1.0.2/activation-1.0.2.jar
+2.	Add it to your local repo: mvn install:install-file -DgroupId=javax.activation -DartifactId=activation -Dversion=1.0.2 -Dpackaging=jar -Dfile=activation-1.0.2.jar
 
 ## MIT License
 Copyright (c) 2013 HAN University of Applied Sciences
