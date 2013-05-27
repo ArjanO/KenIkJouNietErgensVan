@@ -1,18 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schema xmlns="http://www.w3.org/2001/XMLSchema"
         targetNamespace="http://www.dare2date.com/schemas/kenikjounietergensvan/types"
-        xmlns:tns="http://www.dare2date.com/schemas/kenikjounietergensvan/types"
+        xmlns:types="http://www.dare2date.com/schemas/kenikjounietergensvan/types"
         elementFormDefault="qualified">
 
-    <complexType name="CalculateResult">
-        <all>
-            <element name="message" type="string"/>
-        </all>
+    <complexType name="OvereenkomstenUsersInput">
+        <sequence>
+            <element name="users">
+                <complexType>
+                    <sequence minOccurs="2" maxOccurs="2">
+                        <element ref="types:user"/>
+                    </sequence>
+                </complexType>
+            </element>
+        </sequence>
     </complexType>
 
-    <complexType name="CalculateInput">
-        <all>
-			<element name="username" type="string" minOccurs="1" maxOccurs="1"/>
-        </all>
+    <complexType name="OvereenkomstenUsersResult">
+        <sequence>
+            <element ref="types:data"/>
+        </sequence>
     </complexType>
+
+    <element name="user" type="string" />
+
+    <element name="data">
+        <complexType>
+            <sequence>
+                <element name="items" type="string" maxOccurs="unbounded" />
+            </sequence>
+        </complexType>
+    </element>
 </schema>

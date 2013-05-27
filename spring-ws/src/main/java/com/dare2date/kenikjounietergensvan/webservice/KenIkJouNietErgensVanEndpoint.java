@@ -31,6 +31,8 @@ import org.springframework.oxm.Unmarshaller;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 
+import java.util.ArrayList;
+
 @Endpoint
 public class KenIkJouNietErgensVanEndpoint {
     private Marshaller marshaller;
@@ -41,13 +43,19 @@ public class KenIkJouNietErgensVanEndpoint {
         this.unmarshaller = unmarshaller;
     }
 
-    @PayloadRoot(localPart = "CalculateRequest", namespace = "http://www.dare2date.com/schemas/kenikjounietergensvan/messages")
-    public CalculateResponse agreements(CalculateRequest req) {
-        CalculateResult result = new CalculateResult();
-        result.setMessage("Hello " + req.getInput().getUsername());
+    @PayloadRoot(localPart = "OvereenkomstenUsersRequest", namespace = "http://www.dare2date.com/schemas/kenikjounietergensvan/messages")
+    public OvereenkomstenUsersResponse agreements(OvereenkomstenUsersRequest req) {
+        Data users = new Data();
+        users.items = new ArrayList<String>();
 
-        CalculateResponse resp = new CalculateResponse();
-        resp.setResult(result);
-        return resp;
+        users.items.add(req.getInput().users.user.get(0));
+        users.items.add(req.getInput().users.user.get(1));
+
+        OvereenkomstenUsersResult result = new OvereenkomstenUsersResult();
+        result.setData(users);
+
+        OvereenkomstenUsersResponse response = new OvereenkomstenUsersResponse();
+        response.setResult(result);
+        return response;
     }
 }

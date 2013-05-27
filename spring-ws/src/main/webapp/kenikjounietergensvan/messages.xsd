@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schema xmlns="http://www.w3.org/2001/XMLSchema"
         targetNamespace="http://www.dare2date.com/schemas/kenikjounietergensvan/messages"
-        xmlns:tns="http://www.dare2date.com/schemas/kenikjounietergensvan/messages"
         xmlns:types="http://www.dare2date.com/schemas/kenikjounietergensvan/types"
         elementFormDefault="qualified">
 
     <import namespace="http://www.dare2date.com/schemas/kenikjounietergensvan/types" schemaLocation="types.xsd"/>
  
-	<element name="CalculateRequest">
+	<element name="OvereenkomstenUsersRequest">
         <complexType>
             <sequence minOccurs="1" maxOccurs="1">
-                <element name="input" type="types:CalculateInput" />
+                <element name="input" type="types:OvereenkomstenUsersInput" />
             </sequence>
         </complexType>	
 	</element>
 
-	<element name="CalculateResponse">
+	<element name="OvereenkomstenUsersResponse">
         <complexType>
             <sequence minOccurs="1" maxOccurs="1">
-                <element name="result" type="types:CalculateResult" />
+                <element name="result" type="types:OvereenkomstenUsersResult" />
             </sequence>
         </complexType>	
 	</element>
