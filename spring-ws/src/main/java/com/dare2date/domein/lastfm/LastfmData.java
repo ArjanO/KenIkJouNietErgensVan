@@ -26,10 +26,36 @@
  */
 package com.dare2date.domein.lastfm;
 
+import java.util.ArrayList;
 import java.util.TreeSet;
 
 public class LastfmData {
-    private TreeSet<LastfmEvent> eventsUserHasVisited;
+    private TreeSet<LastfmEvent> events;
 
+    public LastfmData() {
+        events = new TreeSet<LastfmEvent>();
+    }
 
+    public void addEvent(LastfmEvent event) {
+        events.add(event);
+    }
+
+    public TreeSet<LastfmEvent> getEvents() {
+        return events;
+    }
+
+    /**
+     * Compares two lastfm data objects and returns matching lastfm events.
+     * @param eventsToCompare Events to Compare
+     * @return Matching events
+     */
+    public ArrayList<LastfmEvent> getMatchingEvents(LastfmData eventsToCompare) {
+        ArrayList<LastfmEvent> matchingEvents = new ArrayList<LastfmEvent>();
+        for(LastfmEvent event : events) {
+            if(eventsToCompare.getEvents().contains(event)) {
+                matchingEvents.add(event);
+            }
+        }
+        return matchingEvents;
+    }
 }

@@ -26,17 +26,18 @@
  */
 package com.dare2date.domein.lastfm;
 
+import java.util.Calendar;
 import java.util.Date;
 
-public class LastfmEvent {
+public class LastfmEvent implements Comparable<LastfmEvent>{
     private int id;
     private String title;
-    private Date startDate;
+    private Calendar startDate;
     private String city;
     private String country;
     private String street;
 
-    public LastfmEvent(int id, String title, Date startDate, String city, String country, String street) {
+    public LastfmEvent(int id, String title, Calendar startDate, String city, String country, String street) {
         this.id = id;
         this.title = title;
         this.startDate = startDate;
@@ -53,7 +54,7 @@ public class LastfmEvent {
         return title;
     }
 
-    public Date getStartDate() {
+    public Calendar getStartDate() {
         return startDate;
     }
 
@@ -67,5 +68,31 @@ public class LastfmEvent {
 
     public String getStreet() {
         return street;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        LastfmEvent otherevent = (LastfmEvent) obj;
+        if(otherevent.getId() != this.getId()) {
+            return false;
+        }
+        return true;
+    }
+
+    public int compareTo(LastfmEvent o) {
+       if(o.getId() == this.id) {
+           return 0;
+       } else if(o.getId() > this.id) {
+           return -1;
+       } else {
+           return 1;
+       }
+
     }
 }
