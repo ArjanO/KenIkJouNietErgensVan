@@ -12,6 +12,27 @@ Services for the Dare2Date casus of the HAN minor Advanced Programming course Ad
 
 + [https://github.com/Sjoel](https://github.com/Sjoel)
 
+## Spring-ws
+"Ken ik jou niet ergens van?" service implemented with Spring Web Services.
+
+### Facebook
+To add Facebook support create /spring-ws/src/main/webapp/facebook.xml and add the follow content.
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <!-- Configuration for Facebook. Don't publish this file with your Facebook app id and app secret -->
+    <bean id="facebookApi" class="com.dare2date.externeservice.facebook.FacebookAPI">
+        <property name="appId" value="YOUR_FACEBOOK_APP_ID" />
+        <property name="appSecret" value="YOUR_FACEBOOK_APP_SECRET" />
+    </bean>
+</beans>
+```
+
+Note the file facebook.xml is ignored by git. 
+
 ## Building with maven notes
 
 If it fails on javax.activation:

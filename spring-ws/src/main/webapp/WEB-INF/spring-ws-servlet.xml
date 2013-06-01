@@ -4,7 +4,11 @@
 	xmlns:oxm="http://www.springframework.org/schema/oxm"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/oxm
 http://www.springframework.org/schema/oxm/spring-oxm-1.5.xsd http://www.springframework.org/schema/web-services http://www.springframework.org/schema/web-services/webservices-1.5.xsd">
-	<bean id="messageFactory" class="org.springframework.ws.soap.saaj.SaajSoapMessageFactory" />
+
+    <!-- See readme.md for more information about facebook.xml -->
+    <import resource="facebook.xml" />
+
+    <bean id="messageFactory" class="org.springframework.ws.soap.saaj.SaajSoapMessageFactory" />
 	<bean id="messageReceiver"
 		class="org.springframework.ws.soap.server.SoapMessageDispatcher" />
 
