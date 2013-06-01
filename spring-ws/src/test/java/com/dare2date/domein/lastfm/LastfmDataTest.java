@@ -26,6 +26,8 @@
  */
 package com.dare2date.domein.lastfm;
 
+import com.dare2date.externeservice.lastfm.LastfmAPI;
+import com.dare2date.utility.HttpClient;
 import junit.framework.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -34,6 +36,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import javax.xml.transform.sax.SAXSource;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -43,16 +46,24 @@ public class LastfmDataTest {
 
     @Test
     public void testLastfmDataCompare() {
-        LastfmData lfmData1 = new LastfmData();
-        lfmData1.addEvent(new LastfmEvent(123456, "ASD", Calendar.getInstance(), "Baak", "Nederland", "Hoofdstraat"));
-        lfmData1.addEvent(new LastfmEvent(236547, "SFM", Calendar.getInstance(), "Baak", "Nederland", "Hoofdstraat"));
-        lfmData1.addEvent(new LastfmEvent(743125, "WVF", Calendar.getInstance(), "Baak", "Nederland", "Hoofdstraat"));
-        LastfmData lfmData2 = new LastfmData();
-        lfmData2.addEvent(new LastfmEvent(546104, "ASD", Calendar.getInstance(), "Baak", "Nederland", "Hoofdstraat"));
-        lfmData2.addEvent(new LastfmEvent(743125, "SVM", Calendar.getInstance(), "Baak", "Nederland", "Hoofdstraat"));
-        lfmData2.addEvent(new LastfmEvent(456465, "KLMK", Calendar.getInstance(), "Baak", "Nederland", "Hoofdstraat"));
-        ArrayList<LastfmEvent> matchedEvents = lfmData1.getMatchingEvents(lfmData2);
-        Assert.assertEquals(1,matchedEvents.size());
-        Assert.assertEquals(743125,matchedEvents.get(0).getId());
+        LastfmData data1 = new LastfmData();
+        data1.addEvent(new LastfmEvent(1234,"GelijkFesti"));
+        data1.addEvent(new LastfmEvent(561631,"SVDVDABC"));
+        data1.addEvent(new LastfmEvent(48651465,"SKN LSfS"));
+        data1.addEvent(new LastfmEvent(51206105,"Matchy Match"));
+        data1.addEvent(new LastfmEvent(126521,"OLKMOPKM"));
+
+        LastfmData data2 = new LastfmData();
+        data2.addEvent(new LastfmEvent(156198510,"SSFKN SKFLMS"));
+        data2.addEvent(new LastfmEvent(51206105,"Matchy Match"));
+        data2.addEvent(new LastfmEvent(51651051,"SKMNKSMC"));
+        data2.addEvent(new LastfmEvent(84584879,"SVDVDABC"));
+        data2.addEvent(new LastfmEvent(415154,"SVDVSMC MSCDABC"));
+        data2.addEvent(new LastfmEvent(150515,"SCOSKPO"));
+        data2.addEvent(new LastfmEvent(1234,"GelijkFesti"));
+
+        Assert.assertEquals(2,data1.getMatchingEvents(data2).size());
+        Assert.assertEquals(1234,data1.getMatchingEvents(data2).get(0).getId());
+        Assert.assertEquals(51206105,data1.getMatchingEvents(data2).get(1).getId());
     }
 }

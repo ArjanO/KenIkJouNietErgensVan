@@ -36,14 +36,39 @@ public class LastfmEvent implements Comparable<LastfmEvent>{
     private String city;
     private String country;
     private String street;
+    private String venueName;
 
-    public LastfmEvent(int id, String title, Calendar startDate, String city, String country, String street) {
+    public String getVenueName() {
+        return venueName;
+    }
+
+    public void setVenueName(String venueName) {
+        this.venueName = venueName;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setStartDate(Calendar startDate) {
+        this.startDate = startDate;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+
+    public LastfmEvent(int id, String title) {
         this.id = id;
         this.title = title;
-        this.startDate = startDate;
-        this.city = city;
-        this.country = country;
-        this.street = street;
     }
 
     public int getId() {
