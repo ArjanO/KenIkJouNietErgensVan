@@ -26,9 +26,19 @@
  */
 package com.dare2date.externeservice.facebook;
 
+import com.dare2date.domein.facebook.FacebookEvent;
+
+import java.util.List;
+
 /**
  * Facebook API
  */
 public interface IFacebookAPI {
-
+    /**
+     * Get the events from the user.
+     *
+     * @param accessToken Users access token.
+     * @return List Events form the user.
+     */
+    List<FacebookEvent> getUsersEvents(String accessToken);
 }

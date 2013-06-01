@@ -26,9 +26,20 @@
  */
 package com.dare2date.externeservice.facebook;
 
+import com.dare2date.domein.facebook.FacebookEvent;
+import com.dare2date.utility.IHttpClient;
+import com.jayway.jsonpath.JsonPath;
+import org.json.simple.JSONObject;
+
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
+
 public class FacebookAPI implements IFacebookAPI {
     private String appId;
     private String appSecret;
+
+    private IHttpClient httpClient;
 
     /**
      * Set the Facebook app id.
@@ -46,5 +57,59 @@ public class FacebookAPI implements IFacebookAPI {
      */
     public void setAppSecret(String appSecret) {
         this.appSecret = appSecret;
+    }
+
+    /**
+     * Set the HTTP client.
+     *
+     * @param httpClient HTTP client.
+     */
+    public void setHttpClient(IHttpClient httpClient) {
+        this.httpClient = httpClient;
+    }
+
+    /**
+     * Get the events from the user.
+     *
+     * @param accessToken Users access token.
+     * @return List Events form the user.
+     */
+    public List<FacebookEvent> getUsersEvents(String accessToken) {
+        if (accessToken == null) {
+            throw new IllegalArgumentException();
+        }
+
+        String response = httpClient.get("https://graph.facebook.com/me/events?access_token=" + accessToken);
+        List<FacebookEvent> result = new ArrayList<FacebookEvent>();
+
+        if (response != null) {
+            try {
+                List<JSONObject> items = JsonPath.read(response, "$.data");
+
+                if (items == null) {
+                    return result;
+                }
+
+                for (JSONObject item : items) {
+                    String id = null;
+                    String name = null;
+
+                    if (item.containsKey("id")) {
+                        id = item.get("id").toString();
+                    }
+                    if (item.containsKey("name")) {
+                        name = item.get("name").toString();
+                    }
+
+                    if (id != null && name != null) {
+                        result.add(new FacebookEvent(id, name));
+                    }
+                }
+            } catch (ParseException e) {
+                return null;
+            }
+        }
+
+        return result;
     }
 }
