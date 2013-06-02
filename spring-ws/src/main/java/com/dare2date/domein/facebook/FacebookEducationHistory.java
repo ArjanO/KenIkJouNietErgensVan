@@ -68,4 +68,15 @@ public class FacebookEducationHistory {
     public String getName() {
         return name;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof FacebookEvent) {
+            FacebookEducationHistory other = (FacebookEducationHistory)obj;
+
+            // Look only to the id.
+            return other.id.equals(id);
+        }
+        return super.equals(obj);
+    }
 }
