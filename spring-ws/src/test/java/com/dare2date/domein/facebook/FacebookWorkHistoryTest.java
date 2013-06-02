@@ -51,4 +51,32 @@ public class FacebookWorkHistoryTest {
 
         Assert.assertEquals("Test B.V.", work.getName());
     }
+
+    @Test
+    public void testEquals() {
+        FacebookWorkHistory item1 = new FacebookWorkHistory();
+        FacebookWorkHistory item2 = new FacebookWorkHistory();
+
+        item1.setId("1");
+        item1.setName("Test");
+
+        item2.setId("1");
+        item2.setName("Not");
+
+        Assert.assertFalse(item1.equals(item2));
+    }
+
+    @Test
+    public void testNotEquals() {
+        FacebookWorkHistory item1 = new FacebookWorkHistory();
+        FacebookWorkHistory item2 = new FacebookWorkHistory();
+
+        item1.setId("1");
+        item1.setName("Test");
+
+        item2.setId("2");
+        item2.setName("Test");
+
+        Assert.assertFalse(item1.equals(item2));
+    }
 }
