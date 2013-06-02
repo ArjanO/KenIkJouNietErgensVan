@@ -27,6 +27,7 @@
 package com.dare2date.externeservice.facebook;
 
 import com.dare2date.domein.facebook.FacebookEvent;
+import com.dare2date.domein.facebook.FacebookWorkHistory;
 import com.dare2date.utility.IHttpClient;
 import junit.framework.Assert;
 import org.easymock.EasyMock;
@@ -142,5 +143,82 @@ public class FacebookAPITest {
         EasyMock.replay(httpClientMock);
 
         facebook.getUsersEvents(null);
+    }
+
+    @Test
+    public void testGetUserWorkHistory() {
+        EasyMock.expect(httpClientMock.get(EasyMock.isA(String.class)))
+                .andReturn("{\n" +
+                        "   \"work\": [\n" +
+                        "      {\n" +
+                        "         \"employer\": {\n" +
+                        "            \"id\": \"1234567\",\n" +
+                        "            \"name\": \"BVTest\"\n" +
+                        "         }\n" +
+                        "      }\n" +
+                        "   ],\n" +
+                        "   \"id\": \"8910\"\n" +
+                        "}").once();
+
+        EasyMock.replay(httpClientMock);
+
+        List<FacebookWorkHistory> result = facebook.getUsersWorkHistory("1234");
+
+        Assert.assertEquals(1, result.size());
+    }
+
+    @Test
+    public void testGetUserWorkHistoryTwoEmployers() {
+        EasyMock.expect(httpClientMock.get(EasyMock.isA(String.class)))
+                .andReturn("{\n" +
+                        "   \"work\": [\n" +
+                        "      {\n" +
+                        "         \"employer\": {\n" +
+                        "            \"id\": \"12345\",\n" +
+                        "            \"name\": \"BVTest\"\n" +
+                        "         }\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "         \"employer\": {\n" +
+                        "            \"id\": \"67890\",\n" +
+                        "            \"name\": \"Test test\"\n" +
+                        "         },\n" +
+                        "         \"start_date\": \"0000-00\",\n" +
+                        "         \"end_date\": \"0000-00\"\n" +
+                        "      }\n" +
+                        "   ],\n" +
+                        "   \"id\": \"11111111\"\n" +
+                        "}").once();
+
+        EasyMock.replay(httpClientMock);
+
+        List<FacebookWorkHistory> result = facebook.getUsersWorkHistory("1234");
+
+        Assert.assertEquals(2, result.size());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetUserWorkHistoryNullAccessToken() {
+        EasyMock.replay(httpClientMock);
+
+        facebook.getUsersWorkHistory(null);
+    }
+
+    @Test
+    public void testGetUserWorkHistoryError() {
+        EasyMock.expect(httpClientMock.get(EasyMock.isA(String.class)))
+                .andReturn("{\n" +
+                        "   \"error\": {\n" +
+                        "      \"message\": \"An active access token must be used to query information about the current user.\",\n" +
+                        "      \"type\": \"OAuthException\",\n" +
+                        "      \"code\": 2500\n" +
+                        "   }\n" +
+                        "}").once();
+
+        EasyMock.replay(httpClientMock);
+
+        List<FacebookWorkHistory> result = facebook.getUsersWorkHistory("abc");
+
+        Assert.assertEquals(0, result.size());
     }
 }
