@@ -67,4 +67,15 @@ public class FacebookWorkHistory {
     public String getName() {
         return name;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof FacebookEvent) {
+            FacebookWorkHistory other = (FacebookWorkHistory)obj;
+
+            // Look only to the id.
+            return other.id.equals(id);
+        }
+        return super.equals(obj);
+    }
 }
