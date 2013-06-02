@@ -26,6 +26,7 @@
  */
 package com.dare2date.externeservice.facebook;
 
+import com.dare2date.domein.facebook.FacebookEducationHistory;
 import com.dare2date.domein.facebook.FacebookEvent;
 import com.dare2date.domein.facebook.FacebookWorkHistory;
 import com.dare2date.utility.IHttpClient;
@@ -134,6 +135,16 @@ public class FacebookAPI implements IFacebookAPI {
         }
 
         return parseWorkHistory(response);
+    }
+
+    /**
+     * Get the education history of the user.
+     *
+     * @param accessToken Users access token.
+     * @return List with the users education history.
+     */
+    public List<FacebookEducationHistory> getUsersEducationHistory(String accessToken) {
+        return null;
     }
 
     private List<FacebookWorkHistory> parseWorkHistory(String json) {
