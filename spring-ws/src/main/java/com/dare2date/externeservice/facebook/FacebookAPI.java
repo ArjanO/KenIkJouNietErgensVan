@@ -144,7 +144,17 @@ public class FacebookAPI implements IFacebookAPI {
      * @return List with the users education history.
      */
     public List<FacebookEducationHistory> getUsersEducationHistory(String accessToken) {
-        return null;
+        if (accessToken == null) {
+            throw new IllegalArgumentException();
+        }
+
+        String response = httpClient.get(FACEBOOK_URL + "education&access_token=" + accessToken);
+
+        if (response == null) {
+            return new ArrayList<FacebookEducationHistory>();
+        }
+
+        return parseEducationHistory(response);
     }
 
     private List<FacebookWorkHistory> parseWorkHistory(String json) {
@@ -178,6 +188,43 @@ public class FacebookAPI implements IFacebookAPI {
                 work.setId(id);
 
                 result.add(work);
+            }
+        }
+
+        return result;
+    }
+
+    public List<FacebookEducationHistory> parseEducationHistory(String json) {
+        List<FacebookEducationHistory> result = new ArrayList<FacebookEducationHistory>();
+
+        List<JSONObject> items;
+        try {
+            items = JsonPath.read(json, "$.education.school");
+        } catch (ParseException e) {
+            return result;
+        }
+
+        if (items == null) {
+            return result;
+        }
+
+        for (JSONObject employer : items) {
+            String id = null;
+            String name = null;
+
+            if (employer.containsKey("id")) {
+                id = employer.get("id").toString();
+            }
+            if (employer.containsKey("name")) {
+                name = employer.get("name").toString();
+            }
+
+            if (id != null && name != null) {
+                FacebookEducationHistory education = new FacebookEducationHistory();
+                education.setName(name);
+                education.setId(id);
+
+                result.add(education);
             }
         }
 
