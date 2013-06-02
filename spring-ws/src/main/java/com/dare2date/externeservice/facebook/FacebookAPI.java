@@ -37,6 +37,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FacebookAPI implements IFacebookAPI {
+    private static final String FACEBOOK_URL = "https://graph.facebook.com/me?fields=";
+
     private String appId;
     private String appSecret;
 
@@ -121,6 +123,53 @@ public class FacebookAPI implements IFacebookAPI {
      * @return List with users work history.
      */
     public List<FacebookWorkHistory> getUsersWorkHistory(String accessToken) {
-        return null;
+        if (accessToken == null) {
+            throw new IllegalArgumentException();
+        }
+
+        String response = httpClient.get(FACEBOOK_URL + "work&access_token=" + accessToken);
+
+        if (response == null) {
+            return new ArrayList<FacebookWorkHistory>();
+        }
+
+        return parseWorkHistory(response);
+    }
+
+    private List<FacebookWorkHistory> parseWorkHistory(String json) {
+        List<FacebookWorkHistory> result = new ArrayList<FacebookWorkHistory>();
+
+        List<JSONObject> items;
+        try {
+            items = JsonPath.read(json, "$.work.employer");
+        } catch (ParseException e) {
+            return result;
+        }
+
+        if (items == null) {
+            return result;
+        }
+
+        for (JSONObject employer : items) {
+            String id = null;
+            String name = null;
+
+            if (employer.containsKey("id")) {
+                id = employer.get("id").toString();
+            }
+            if (employer.containsKey("name")) {
+                name = employer.get("name").toString();
+            }
+
+            if (id != null && name != null) {
+                FacebookWorkHistory work = new FacebookWorkHistory();
+                work.setName(name);
+                work.setId(id);
+
+                result.add(work);
+            }
+        }
+
+        return result;
     }
 }
