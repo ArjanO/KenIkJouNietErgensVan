@@ -26,6 +26,7 @@
  */
 package com.dare2date.externeservice.facebook;
 
+import com.dare2date.domein.facebook.FacebookEducationHistory;
 import com.dare2date.domein.facebook.FacebookEvent;
 import com.dare2date.domein.facebook.FacebookWorkHistory;
 import com.dare2date.utility.IHttpClient;
@@ -165,6 +166,8 @@ public class FacebookAPITest {
         List<FacebookWorkHistory> result = facebook.getUsersWorkHistory("1234");
 
         Assert.assertEquals(1, result.size());
+        Assert.assertEquals("1234567", result.get(0).getId());
+        Assert.assertEquals("BVTest", result.get(0).getName());
     }
 
     @Test
@@ -218,6 +221,86 @@ public class FacebookAPITest {
         EasyMock.replay(httpClientMock);
 
         List<FacebookWorkHistory> result = facebook.getUsersWorkHistory("abc");
+
+        Assert.assertEquals(0, result.size());
+    }
+
+    @Test
+    public void testGetUsersEducationHistory() {
+        EasyMock.expect(httpClientMock.get(EasyMock.isA(String.class)))
+                .andReturn("{\n" +
+                        "   \"education\": [\n" +
+                        "      {\n" +
+                        "         \"school\": {\n" +
+                        "            \"id\": \"12345\",\n" +
+                        "            \"name\": \"ROC Nijmegen\"\n" +
+                        "         },\n" +
+                        "         \"type\": \"High School\"\n" +
+                        "      }\n" +
+                        "   ],\n" +
+                        "   \"id\": \"67890\"\n" +
+                        "}").once();
+
+        EasyMock.replay(httpClientMock);
+
+        List<FacebookEducationHistory> result = facebook.getUsersEducationHistory("1234");
+
+        Assert.assertEquals(1, result.size());
+        Assert.assertEquals("12345", result.get(0).getId());
+        Assert.assertEquals("ROC Nijmegen", result.get(0).getName());
+    }
+
+    @Test
+    public void testGetUserEducationHistoryTwoSchools() {
+        EasyMock.expect(httpClientMock.get(EasyMock.isA(String.class)))
+                .andReturn("{\n" +
+                        "   \"education\": [\n" +
+                        "      {\n" +
+                        "         \"school\": {\n" +
+                        "            \"id\": \"12345\",\n" +
+                        "            \"name\": \"ROC Nijmegen\"\n" +
+                        "         },\n" +
+                        "         \"type\": \"High School\"\n" +
+                        "      },\n" +
+                        "      {\n" +
+                        "         \"school\": {\n" +
+                        "            \"id\": \"12345\",\n" +
+                        "            \"name\": \"HAN University of applied sciences /Hogeschool van Arnhem en Nijmegen (HAN)\"\n" +
+                        "         },\n" +
+                        "         \"type\": \"College\"\n" +
+                        "      }\n" +
+                        "   ],\n" +
+                        "   \"id\": \"67890\"\n" +
+                        "}").once();
+
+        EasyMock.replay(httpClientMock);
+
+        List<FacebookEducationHistory> result = facebook.getUsersEducationHistory("1234");
+
+        Assert.assertEquals(2, result.size());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testGetUserEducationHistoryNullAccessToken() {
+        EasyMock.replay(httpClientMock);
+
+        facebook.getUsersEducationHistory(null);
+    }
+
+    @Test
+    public void testGetUserEducationHistoryError() {
+        EasyMock.expect(httpClientMock.get(EasyMock.isA(String.class)))
+                .andReturn("{\n" +
+                        "   \"error\": {\n" +
+                        "      \"message\": \"An active access token must be used to query information about the current user.\",\n" +
+                        "      \"type\": \"OAuthException\",\n" +
+                        "      \"code\": 2500\n" +
+                        "   }\n" +
+                        "}").once();
+
+        EasyMock.replay(httpClientMock);
+
+        List<FacebookEducationHistory> result = facebook.getUsersEducationHistory("abc");
 
         Assert.assertEquals(0, result.size());
     }
