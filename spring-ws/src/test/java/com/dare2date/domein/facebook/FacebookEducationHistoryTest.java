@@ -52,4 +52,32 @@ public class FacebookEducationHistoryTest {
         Assert.assertEquals("TEST University of applied sciences",
                 education.getName());
     }
+
+    @Test
+    public void testEquals() {
+        FacebookEducationHistory item1 = new FacebookEducationHistory();
+        FacebookEducationHistory item2 = new FacebookEducationHistory();
+
+        item1.setId("1");
+        item1.setName("Test");
+
+        item2.setId("1");
+        item2.setName("Not");
+
+        Assert.assertFalse(item1.equals(item2));
+    }
+
+    @Test
+    public void testNotEquals() {
+        FacebookEducationHistory item1 = new FacebookEducationHistory();
+        FacebookEducationHistory item2 = new FacebookEducationHistory();
+
+        item1.setId("1");
+        item1.setName("Test");
+
+        item2.setId("2");
+        item2.setName("Test");
+
+        Assert.assertFalse(item1.equals(item2));
+    }
 }
