@@ -53,4 +53,20 @@ public class FacebookEventTest {
 
         Assert.assertEquals("Event 1", event.getName());
     }
+
+    @Test
+    public void testEquals() {
+        FacebookEvent event1 = new FacebookEvent("1", "Test");
+        FacebookEvent event2 = new FacebookEvent("1", "Not");
+
+        Assert.assertTrue(event1.equals(event2));
+    }
+
+    @Test
+    public void testNotEquals() {
+        FacebookEvent event1 = new FacebookEvent("1", "Test");
+        FacebookEvent event2 = new FacebookEvent("2", "Test");
+
+        Assert.assertFalse(event1.equals(event2));
+    }
 }
