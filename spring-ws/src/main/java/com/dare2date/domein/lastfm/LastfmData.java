@@ -44,6 +44,10 @@ public class LastfmData {
         return events;
     }
 
+    public void setEvents(TreeSet<LastfmEvent> events)  {
+        this.events = events;
+    }
+
     /**
      * Compares two lastfm data objects and returns matching lastfm events.
      * @param eventsToCompare Events to Compare

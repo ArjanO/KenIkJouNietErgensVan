@@ -24,12 +24,23 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  * OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.dare2date.externeservice.lastfm;
+package com.dare2date.businessservice;
 
-import com.dare2date.domein.lastfm.LastfmEvent;
+import com.dare2date.domein.lastfm.LastfmData;
+import com.dare2date.externeservice.lastfm.ILastfmAPI;
+import com.dare2date.externeservice.lastfm.LastfmAPI;
 
-import java.util.TreeSet;
+public class LastfmService {
 
-public interface ILastfmAPI {
-    TreeSet<LastfmEvent> getUserEventHistory(String username);
+    private ILastfmAPI api;
+
+    public LastfmService() {
+        api = new LastfmAPI();
+    }
+
+    public LastfmData getLastfmGegevens(String username)   {
+        LastfmData result = new LastfmData();
+        result.setEvents(api.getUserEventHistory(username));
+        return result;
+    }
 }

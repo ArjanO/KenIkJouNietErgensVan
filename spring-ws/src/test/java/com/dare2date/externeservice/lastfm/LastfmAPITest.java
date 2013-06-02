@@ -28,6 +28,7 @@ package com.dare2date.externeservice.lastfm;
 
 import com.dare2date.domein.facebook.FacebookEvent;
 import com.dare2date.domein.lastfm.LastfmData;
+import com.dare2date.domein.lastfm.LastfmEvent;
 import com.dare2date.externeservice.facebook.FacebookAPI;
 import com.dare2date.utility.HttpClient;
 import com.dare2date.utility.IHttpClient;
@@ -38,6 +39,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
+import java.util.TreeSet;
 
 public class LastfmAPITest {
 
@@ -46,14 +48,14 @@ public class LastfmAPITest {
         LastfmAPI lastfm = new LastfmAPI();
         lastfm.setApiKey("2381cb66d98ee29ab508b4a37cb837c5");
         lastfm.setHttpClient(new HttpClient());
-        LastfmData data = lastfm.getUserEventHistory("Olodanderfluf");
-        Assert.assertEquals(4,data.getEvents().size());
-        Assert.assertNotNull(data.getEvents().first().getId());
-        Assert.assertNotNull(data.getEvents().first().getTitle());
-        Assert.assertNotNull(data.getEvents().first().getCity());
-        Assert.assertNotNull(data.getEvents().first().getCountry());
-        Assert.assertNotNull(data.getEvents().first().getStreet());
-        Assert.assertNotNull(data.getEvents().first().getVenueName());
-        Assert.assertNotNull(data.getEvents().first().getStartDate());
+        TreeSet<LastfmEvent> events = lastfm.getUserEventHistory("Olodanderfluf");
+        Assert.assertEquals(4,events.size());
+        Assert.assertNotNull(events.first().getId());
+        Assert.assertNotNull(events.first().getTitle());
+        Assert.assertNotNull(events.first().getCity());
+        Assert.assertNotNull(events.first().getCountry());
+        Assert.assertNotNull(events.first().getStreet());
+        Assert.assertNotNull(events.first().getVenueName());
+        Assert.assertNotNull(events.first().getStartDate());
     }
 }

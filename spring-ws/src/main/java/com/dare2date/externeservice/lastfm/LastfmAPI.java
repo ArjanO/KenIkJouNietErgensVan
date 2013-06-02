@@ -57,18 +57,18 @@ public class LastfmAPI  implements ILastfmAPI{
     }
 
     /**
-     * Makes a call to an external Lastfm service and processes this data to an LastfmData object.
+     * Makes a call to an external Lastfm service and processes this set of LastfmEvent objects.
      * @param username The user from whom the event will be requested.
      * @return A LastfmData object from a specific user, which hold data from all visited last fm events.
      */
-    public LastfmData getUserEventHistory(String username) {
-        LastfmData result = new LastfmData();
+    public TreeSet<LastfmEvent> getUserEventHistory(String username) {
+        TreeSet<LastfmEvent> result = new TreeSet<LastfmEvent>();
         String response = httpClient.get("http://ws.audioscrobbler.com/2.0/?method=user.getpastevents&user="+username+"&api_key="+apiKey+"&format=JSON");
         if(response != null)  {
             try {
                List<JSONObject> eventsData = JsonPath.read(response,"$..event");
                for(JSONObject eventData : eventsData) {
-                   result.addEvent(createEventFromJSONData(eventData));
+                   result.add(createEventFromJSONData(eventData));
                }
             } catch(ParseException e) {
                e.printStackTrace();
