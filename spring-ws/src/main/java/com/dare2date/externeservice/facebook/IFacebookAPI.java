@@ -27,6 +27,7 @@
 package com.dare2date.externeservice.facebook;
 
 import com.dare2date.domein.facebook.FacebookEvent;
+import com.dare2date.domein.facebook.FacebookWorkHistory;
 
 import java.util.List;
 
@@ -41,4 +42,12 @@ public interface IFacebookAPI {
      * @return List Events form the user.
      */
     List<FacebookEvent> getUsersEvents(String accessToken);
+
+    /**
+     * Get the work history from the user.
+     *
+     * @param accessToken Access token for the user.
+     * @return List with users work history.
+     */
+    List<FacebookWorkHistory> getUsersWorkHistory(String accessToken);
 }

@@ -27,6 +27,7 @@
 package com.dare2date.externeservice.facebook;
 
 import com.dare2date.domein.facebook.FacebookEvent;
+import com.dare2date.domein.facebook.FacebookWorkHistory;
 import com.dare2date.utility.IHttpClient;
 import com.jayway.jsonpath.JsonPath;
 import org.json.simple.JSONObject;
@@ -111,5 +112,15 @@ public class FacebookAPI implements IFacebookAPI {
         }
 
         return result;
+    }
+
+    /**
+     * Get the work history from the user.
+     *
+     * @param accessToken Access token for the user.
+     * @return List with users work history.
+     */
+    public List<FacebookWorkHistory> getUsersWorkHistory(String accessToken) {
+        return null;
     }
 }
