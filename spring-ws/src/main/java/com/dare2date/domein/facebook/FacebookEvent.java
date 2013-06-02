@@ -66,4 +66,15 @@ public class FacebookEvent {
     public String getName() {
         return name;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof FacebookEvent) {
+            FacebookEvent event = (FacebookEvent)obj;
+
+            // Look only to the id.
+            return event.id.equals(id);
+        }
+        return super.equals(obj);
+    }
 }
