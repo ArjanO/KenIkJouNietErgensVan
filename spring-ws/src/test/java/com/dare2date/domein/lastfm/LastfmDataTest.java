@@ -62,8 +62,8 @@ public class LastfmDataTest {
         data2.addEvent(new LastfmEvent(150515,"SCOSKPO"));
         data2.addEvent(new LastfmEvent(1234,"GelijkFesti"));
 
-//        Assert.assertEquals(2,data1.getMatchingEvents(data2).size());
-//        Assert.assertEquals(1234,data1.getMatchingEvents(data2).get(0).getId());
-//        Assert.assertEquals(51206105,data1.getMatchingEvents(data2).get(1).getId());
+        Assert.assertEquals(2, data1.getMatchingEvents(data2).getEvents().size());
+        Assert.assertTrue(data1.getMatchingEvents(data2).getEvents().contains(new LastfmEvent(1234,"")));
+        Assert.assertTrue(data1.getMatchingEvents(data2).getEvents().contains(new LastfmEvent(51206105,"")));
     }
 }
