@@ -40,6 +40,20 @@ If it fails on javax.activation:
 1.	Download the file manually: http://mirrors.ibiblio.org/maven2/javax/xml/bind/activation/1.0.2/activation-1.0.2.jar
 2.	Add it to your local repo: mvn install:install-file -DgroupId=javax.activation -DartifactId=activation -Dversion=1.0.2 -Dpackaging=jar -Dfile=activation-1.0.2.jar
 
+## Database script
+```sql
+CREATE DATABASE IF NOT EXISTS dare2date;
+use dare2date;
+CREATE TABLE IF NOT EXISTS userservicesauth
+(
+       dare2dateUsername varchar(50),
+	username varchar(50),
+	accesstoken varchar(50),
+	platformname varchar(50),
+	CONSTRAINT pk_Dare2dateUsername PRIMARY KEY (Dare2dateUsername)
+);
+```
+
 ## MIT License
 Copyright (c) 2013 HAN University of Applied Sciences
 Arjan Oortgiese
