@@ -12,6 +12,12 @@ http://www.springframework.org/schema/oxm/spring-oxm-1.5.xsd http://www.springfr
         </property>
     </bean>
 
+    <bean id="database" class="com.dare2date.applicationservice.JDBCAuthorisationService">
+        <property name="dbusername" value="${jdbc.username}" />
+        <property name="dbpassword" value="${jdbc.password}" />
+        <property name="url" value="${jdbc.url}"/>
+    </bean>
+
     <bean id="facebookApi" class="com.dare2date.externeservice.facebook.FacebookAPI">
         <property name="appId" value="${facebook.appid}" />
         <property name="appSecret" value="${facebook.appsecret}" />
