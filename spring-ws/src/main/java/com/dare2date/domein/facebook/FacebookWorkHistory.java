@@ -70,7 +70,7 @@ public class FacebookWorkHistory {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof FacebookEvent) {
+        if (obj instanceof FacebookWorkHistory) {
             FacebookWorkHistory other = (FacebookWorkHistory)obj;
 
             // Look only to the id.

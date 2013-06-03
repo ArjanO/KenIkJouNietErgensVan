@@ -63,7 +63,7 @@ public class FacebookWorkHistoryTest {
         item2.setId("1");
         item2.setName("Not");
 
-        Assert.assertFalse(item1.equals(item2));
+        Assert.assertTrue(item1.equals(item2));
     }
 
     @Test
