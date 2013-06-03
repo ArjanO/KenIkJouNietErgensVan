@@ -47,10 +47,10 @@ use dare2date;
 CREATE TABLE IF NOT EXISTS userservicesauth
 (
        dare2dateUsername varchar(50),
-	username varchar(50),
-	accesstoken varchar(50),
-	platformname varchar(50),
-	CONSTRAINT pk_Dare2dateUsername PRIMARY KEY (Dare2dateUsername)
+    username varchar(50),
+    accesstoken varchar(50),
+    platformname varchar(50),
+    CONSTRAINT pk_Dare2date PRIMARY KEY (Dare2dateUsername,platformname)
 );
 ```
 
