@@ -26,7 +26,16 @@
  */
 package com.dare2date.kenikjounietergensvan.webservice;
 
+import com.dare2date.businessservice.FacebookService;
+import com.dare2date.businessservice.LastfmService;
+import com.dare2date.domein.facebook.FacebookData;
+import com.dare2date.domein.facebook.FacebookEducationHistory;
+import com.dare2date.domein.facebook.FacebookEvent;
+import com.dare2date.domein.facebook.FacebookWorkHistory;
+import com.dare2date.domein.lastfm.LastfmData;
+import com.dare2date.domein.lastfm.LastfmEvent;
 import junit.framework.Assert;
+import org.easymock.EasyMock;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,20 +51,68 @@ public class KenIkJouNietErgensVanEndpointTest {
     private KenIkJouNietErgensVanEndpoint endpoint;
 
     @Test
-    public void testAgreements() throws Exception {
+    public void testAgreements() {
         OvereenkomstenUsersInput input = new OvereenkomstenUsersInput();
         input.setUsers(new OvereenkomstenUsersInput.Users());
         input.users.user = new ArrayList<String>();
 
-        input.users.user.add("Theus");
-        input.users.user.add("Klaas");
+        String username1 = "Theus";
+        String username2 = "Klaas";
+
+        FacebookService fbService = createFacebookServiceMock(username1, username2);
+        LastfmService lfmService = createLastfmServiceMock(username1, username2);
+
+        EasyMock.replay((fbService));
+        EasyMock.replay(lfmService);
+
+        endpoint.setFacebookService(fbService);
+        endpoint.setLastFmService(lfmService);
+
+        input.users.user.add(username1);
+        input.users.user.add(username2);
 
         OvereenkomstenUsersRequest request = new OvereenkomstenUsersRequest();
         request.setInput(input);
 
         OvereenkomstenUsersResponse response = endpoint.agreements(request);
 
-        Assert.assertTrue(response.result.data.items.contains("Theus"));
-        Assert.assertTrue(response.result.data.items.contains("Klaas"));
+        Assert.assertTrue(response.result.getData().getItems().contains("Test"));
+
+        EasyMock.verify(fbService);
+        EasyMock.verify(lfmService);
+    }
+
+    private FacebookService createFacebookServiceMock(String username1, String username2) {
+        FacebookService fbService = EasyMock.createMock(FacebookService.class);
+
+        FacebookData fbDataUser1 = new FacebookData();
+        fbDataUser1.setWorkHistory(new ArrayList<FacebookWorkHistory>());
+        fbDataUser1.setEducationHistory(new ArrayList<FacebookEducationHistory>());
+        fbDataUser1.setEvents(new ArrayList<FacebookEvent>());
+
+        FacebookData fbDataUser2 = new FacebookData();
+        fbDataUser2.setWorkHistory(new ArrayList<FacebookWorkHistory>());
+        fbDataUser2.setEducationHistory(new ArrayList<FacebookEducationHistory>());
+        fbDataUser2.setEvents(new ArrayList<FacebookEvent>());
+
+        EasyMock.expect(fbService.getFacebookMatch(EasyMock.eq(username1))).andReturn(fbDataUser1).once();
+        EasyMock.expect(fbService.getFacebookMatch(EasyMock.eq(username2))).andReturn(fbDataUser2).once();
+
+        return fbService;
+    }
+
+    public LastfmService createLastfmServiceMock(String username1, String username2) {
+        LastfmData lfmDataUser1 = new LastfmData();
+        lfmDataUser1.addEvent(new LastfmEvent(1, "Test"));
+
+        LastfmData lfmDataUser2 = new LastfmData();
+        lfmDataUser2.addEvent(new LastfmEvent(1, "Test"));
+
+        LastfmService lfmService = EasyMock.createMock(LastfmService.class);
+
+        EasyMock.expect(lfmService.getLastfmGegevens(EasyMock.eq(username1))).andReturn(lfmDataUser1).once();
+        EasyMock.expect(lfmService.getLastfmGegevens(EasyMock.eq(username2))).andReturn(lfmDataUser2).once();
+
+        return lfmService;
     }
 }

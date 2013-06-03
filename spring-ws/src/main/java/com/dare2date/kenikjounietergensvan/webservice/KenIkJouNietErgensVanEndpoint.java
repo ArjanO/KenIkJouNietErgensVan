@@ -28,6 +28,7 @@ package com.dare2date.kenikjounietergensvan.webservice;
 
 import com.dare2date.businessservice.FacebookService;
 import com.dare2date.businessservice.LastfmService;
+import com.dare2date.domein.ResultData;
 import org.springframework.oxm.Marshaller;
 import org.springframework.oxm.Unmarshaller;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
@@ -68,14 +69,19 @@ public class KenIkJouNietErgensVanEndpoint {
 
     @PayloadRoot(localPart = "OvereenkomstenUsersRequest", namespace = "http://www.dare2date.com/schemas/kenikjounietergensvan/messages")
     public OvereenkomstenUsersResponse agreements(OvereenkomstenUsersRequest req) {
-        Data users = new Data();
-        users.items = new ArrayList<String>();
+        String username1 = req.getInput().getUsers().getUser().get(0);
+        String username2 = req.getInput().getUsers().getUser().get(1);
 
-        users.items.add(req.getInput().users.user.get(0));
-        users.items.add(req.getInput().users.user.get(1));
+        ResultData data = new ResultData();
+
+        data.setFacebookData1(facebookService.getFacebookMatch(username1));
+        data.setFacebookData2(facebookService.getFacebookMatch(username2));
+
+        data.setLastfmData1(lastFmService.getLastfmGegevens(username1));
+        data.setLastfmData2(lastFmService.getLastfmGegevens(username2));
 
         OvereenkomstenUsersResult result = new OvereenkomstenUsersResult();
-        result.setData(users);
+        result.setData(data.getMatchingData());
 
         OvereenkomstenUsersResponse response = new OvereenkomstenUsersResponse();
         response.setResult(result);
