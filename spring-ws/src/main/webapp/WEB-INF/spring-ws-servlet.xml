@@ -4,9 +4,22 @@
 	xmlns:oxm="http://www.springframework.org/schema/oxm"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd http://www.springframework.org/schema/oxm
 http://www.springframework.org/schema/oxm/spring-oxm-1.5.xsd http://www.springframework.org/schema/web-services http://www.springframework.org/schema/web-services/webservices-1.5.xsd">
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>service.properties</value>
+            </list>
+        </property>
+    </bean>
 
-    <!-- See readme.md for more information about facebook.xml -->
-    <import resource="facebook.xml" />
+    <bean id="facebookApi" class="com.dare2date.externeservice.facebook.FacebookAPI">
+        <property name="appId" value="${facebook.appid}" />
+        <property name="appSecret" value="${facebook.appsecret}" />
+        <property name="httpClient" ref="httpClient" />
+    </bean>
+
+    <bean id="httpClient" class="com.dare2date.utility.HttpClient">
+    </bean>
 
     <bean id="messageFactory" class="org.springframework.ws.soap.saaj.SaajSoapMessageFactory" />
 	<bean id="messageReceiver"
@@ -22,7 +35,7 @@ http://www.springframework.org/schema/oxm/spring-oxm-1.5.xsd http://www.springfr
 		<property name="inline" value="true" />
 	</bean>
 
-	<bean id="calculatorService" class="com.dare2date.kenikjounietergensvan.webservice.KenIkJouNietErgensVanEndpoint">
+	<bean id="kenIkJouNietErgensVanService" class="com.dare2date.kenikjounietergensvan.webservice.KenIkJouNietErgensVanEndpoint">
 		<constructor-arg ref="marshaller" />
 		<constructor-arg ref="unmarshaller" />
 	</bean>

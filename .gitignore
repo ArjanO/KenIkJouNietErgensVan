@@ -13,4 +13,4 @@ target/
 *.iml
 
 # Project spring-ws #
-/spring-ws/src/main/webapp/WEB-INF/facebook.xml
+/spring-ws/src/main/webapp/service.properties
