@@ -29,8 +29,12 @@ http://www.springframework.org/schema/oxm/spring-oxm-1.5.xsd http://www.springfr
         <property name="httpClient" ref="httpClient" />
     </bean>
 
+    <bean id="lastFmAPI" class="com.dare2date.externeservice.lastfm.LastfmAPI">
+    </bean>
+
     <bean id="lastfmService" class="com.dare2date.businessservice.LastfmService">
         <property name="authorisationService" ref="database" />
+        <property name="lastfmAPI" ref="lastFmAPI" />
     </bean>
 
     <bean id="httpClient" class="com.dare2date.utility.HttpClient">

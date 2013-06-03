@@ -44,8 +44,8 @@ public class LastfmService {
         this.authorisationService = authorisationService;
     }
 
-    public LastfmService() {
-        api = new LastfmAPI();
+    public void setLastfmAPI(ILastfmAPI lastfmAPI) {
+        this.api = lastfmAPI;
     }
 
     public LastfmData getLastfmGegevens(String username)   {
