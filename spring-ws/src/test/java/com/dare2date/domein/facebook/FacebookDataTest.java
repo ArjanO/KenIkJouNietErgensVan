@@ -114,7 +114,7 @@ public class FacebookDataTest {
 
         FacebookEducationHistory educationHistory2 = new FacebookEducationHistory();
         educationHistory2.setId("2");
-        educationHistory2.setName("Test");
+        educationHistory2.setName("Test2");
 
         FacebookEducationHistory educationHistory3 = new FacebookEducationHistory();
         educationHistory3.setId("1");

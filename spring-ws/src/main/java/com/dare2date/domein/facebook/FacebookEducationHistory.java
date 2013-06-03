@@ -75,7 +75,7 @@ public class FacebookEducationHistory {
             FacebookEducationHistory other = (FacebookEducationHistory)obj;
 
             // Look only to the id.
-            return other.id.equals(id);
+            return other.name.equals(name);
         }
         return super.equals(obj);
     }
