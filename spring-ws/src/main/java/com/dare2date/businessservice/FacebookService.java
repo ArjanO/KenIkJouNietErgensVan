@@ -62,7 +62,7 @@ public class FacebookService {
      * @return FacebookData object with History, Education and events.
      */
     public FacebookData getFacebookMatch(String username) {
-        String accessToken = authorisationService.getUsername("username", "facebook");
+        String accessToken = authorisationService.getAccessToken(username, "facebook");
 
         FacebookData data = new FacebookData();
 
