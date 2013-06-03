@@ -51,6 +51,32 @@ CREATE TABLE IF NOT EXISTS userservicesauth
 );
 ```
 
+## Facebook
+Getting a users Facebook access token is out the scope of this project. To get a Facebook access token for testing:
+
+1. Create a Facebook APP on http://developers.facebook.com/
+2. Create service.properties config file and add the App ID and App Secret from your Facebook APP.
+
+### Get users Access token 
+The service expect that there is a access_token for users that have Facebook. For more information about the login flow see https://developers.facebook.com/docs/facebook-login/login-flow-for-web-no-jssdk/
+
+To get a access_token for testing:
+
+1. Upload the PHP script below to your webhosting:
+
+  ```php
+  <?php
+  if (isset($_GET['code'])) {
+    echo "Facebook code: " . $_GET['code'];
+  }
+  ?>
+  ```
+
+2. Visit https://www.facebook.com/dialog/oauth?scope=user_education_history,user_work_history,user_events&client_id={app-id}&redirect_uri={redirect-uri}\{script.php} to get the code.
+3. To get the access_token from the code visit https://graph.facebook.com/oauth/access_token?client_id={app-id}&redirect_uri={redirect-uri}&client_secret={app-secret}&code={code-parameter}
+
+Get the access_token from the response.
+
 ## MIT License
 Copyright (c) 2013 HAN University of Applied Sciences
 Arjan Oortgiese
