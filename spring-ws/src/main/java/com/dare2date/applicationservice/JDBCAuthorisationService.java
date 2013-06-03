@@ -74,6 +74,13 @@ public class JDBCAuthorisationService implements IAuthorisationService {
     }
 
     private String getFromDatebase(String dare2dateUserName, String platformname, String field) {
+        try {
+            // Load the MySQL driver.
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            return "";
+        }
+
         Connection con;
         try{
             con =  DriverManager.getConnection(getUrl(),getDbusername(),getDbpassword());
@@ -84,6 +91,7 @@ public class JDBCAuthorisationService implements IAuthorisationService {
             if (rs.next() ) {
                 String result = rs.getString(1);
                 con.close();
+                return result;
             }
         } catch(Exception e) {
             e.printStackTrace();
