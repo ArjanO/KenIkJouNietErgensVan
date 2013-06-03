@@ -139,7 +139,7 @@ public class FacebookDataTest {
         data.setEvents(new ArrayList<FacebookEvent>());
 
         FacebookEvent event1 = new FacebookEvent("1", "Test");
-        FacebookEvent event2 = new FacebookEvent("2", "Test");
+        FacebookEvent event2 = new FacebookEvent("2", "Test 2");
         FacebookEvent event3 = new FacebookEvent("1", "Test");
 
         other.getEvents().add(event1);

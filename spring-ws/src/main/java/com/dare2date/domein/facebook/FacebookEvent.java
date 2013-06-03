@@ -72,8 +72,7 @@ public class FacebookEvent {
         if (obj instanceof FacebookEvent) {
             FacebookEvent event = (FacebookEvent)obj;
 
-            // Look only to the id.
-            return event.id.equals(id);
+            return event.name.equals(name);
         }
         return super.equals(obj);
     }
