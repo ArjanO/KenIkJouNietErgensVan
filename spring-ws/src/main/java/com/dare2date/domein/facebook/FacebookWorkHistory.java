@@ -73,8 +73,7 @@ public class FacebookWorkHistory {
         if (obj instanceof FacebookWorkHistory) {
             FacebookWorkHistory other = (FacebookWorkHistory)obj;
 
-            // Look only to the id.
-            return other.id.equals(id);
+            return other.name.equals(name);
         }
         return super.equals(obj);
     }

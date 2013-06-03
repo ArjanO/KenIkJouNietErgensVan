@@ -84,7 +84,7 @@ public class FacebookDataTest {
 
         FacebookWorkHistory workHistory2 = new FacebookWorkHistory();
         workHistory2.setId("2");
-        workHistory2.setName("Test");
+        workHistory2.setName("Test2");
 
         FacebookWorkHistory workHistory3 = new FacebookWorkHistory();
         workHistory3.setId("1");

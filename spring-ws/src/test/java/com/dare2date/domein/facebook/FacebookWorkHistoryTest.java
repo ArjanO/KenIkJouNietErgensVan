@@ -61,7 +61,7 @@ public class FacebookWorkHistoryTest {
         item1.setName("Test");
 
         item2.setId("1");
-        item2.setName("Not");
+        item2.setName("Test");
 
         Assert.assertTrue(item1.equals(item2));
     }
@@ -75,7 +75,7 @@ public class FacebookWorkHistoryTest {
         item1.setName("Test");
 
         item2.setId("2");
-        item2.setName("Test");
+        item2.setName("Test2");
 
         Assert.assertFalse(item1.equals(item2));
     }
