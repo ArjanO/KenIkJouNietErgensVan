@@ -43,14 +43,14 @@ If it fails on javax.activation:
 ## Database script
 ```sql
 CREATE DATABASE IF NOT EXISTS dare2date;
-use dare2date;
+USE dare2date;
 CREATE TABLE IF NOT EXISTS userservicesauth
 (
-       dare2dateUsername varchar(50),
-    username varchar(50),
-    accesstoken varchar(50),
-    platformname varchar(50),
-    CONSTRAINT pk_Dare2date PRIMARY KEY (Dare2dateUsername,platformname)
+	dare2dateUsername varchar(50),
+	username varchar(50),
+	accesstoken varchar(50),
+	platformname varchar(50),
+	CONSTRAINT pk_Dare2date PRIMARY KEY (dare2dateUsername, platformname)
 );
 ```
 
