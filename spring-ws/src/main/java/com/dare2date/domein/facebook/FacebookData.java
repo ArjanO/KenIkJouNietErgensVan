@@ -32,7 +32,7 @@ import java.util.List;
 public class FacebookData {
     private List<FacebookEvent> events;
     private List<FacebookWorkHistory> work;
-    private List<FacebookEducationHistory> education;
+    private List<FacebookEducationHistory> educations;
 
     /**
      * Set Facebook events.
@@ -55,10 +55,10 @@ public class FacebookData {
     /**
      * Set education history.
      *
-     * @param education Facebook education history.
+     * @param educations Facebook education history.
      */
-    public void setEducationHistory(List<FacebookEducationHistory> education) {
-        this.education = education;
+    public void setEducationHistory(List<FacebookEducationHistory> educations) {
+        this.educations = educations;
     }
 
     /**
@@ -85,7 +85,7 @@ public class FacebookData {
      * @return Facebook education history.
      */
     public List<FacebookEducationHistory> getEducationHistory() {
-        return education;
+        return educations;
     }
 
     /**
@@ -138,8 +138,8 @@ public class FacebookData {
     private List<FacebookEducationHistory> matchingEducationHistory(List<FacebookEducationHistory> other) {
         List<FacebookEducationHistory> matching = new ArrayList<FacebookEducationHistory>();
 
-        if (education != null && other != null) {
-            for (FacebookEducationHistory item : education) {
+        if (educations != null && other != null) {
+            for (FacebookEducationHistory item : educations) {
                 for (FacebookEducationHistory otherEducation : other) {
                     if (item.equals(otherEducation)) {
                         matching.add(item);
@@ -149,5 +149,19 @@ public class FacebookData {
         }
 
         return matching;
+    }
+
+    public ArrayList<String> toStringList() {
+        ArrayList<String> data = new ArrayList<String>();
+        for(FacebookEvent event : events) {
+            data.add(event.getName());
+        }
+        for(FacebookEducationHistory edu : educations) {
+            data.add(edu.getName());
+        }
+        for(FacebookWorkHistory _work : work) {
+            data.add(_work.getName());
+        }
+        return data;
     }
 }

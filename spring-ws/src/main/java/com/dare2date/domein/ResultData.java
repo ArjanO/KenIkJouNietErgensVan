@@ -24,49 +24,46 @@
  * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
  * OTHER DEALINGS IN THE SOFTWARE.
  */
-package com.dare2date.domein.lastfm;
+package com.dare2date.domein;
+
+import com.dare2date.domein.facebook.FacebookData;
+import com.dare2date.domein.lastfm.LastfmData;
+import com.dare2date.domein.lastfm.LastfmEvent;
+import com.dare2date.kenikjounietergensvan.webservice.Data;
 
 import java.util.ArrayList;
-import java.util.TreeSet;
 
-public class LastfmData {
-    private TreeSet<LastfmEvent> events;
+public class ResultData {
+    private LastfmData lastfmData1;
+    private LastfmData lastfmData2;
+    private FacebookData facebookData1;
+    private FacebookData facebookData2;
 
-    public LastfmData() {
-        events = new TreeSet<LastfmEvent>();
+    public void setLastfmData1(LastfmData lastfmData1) {
+        this.lastfmData1 = lastfmData1;
     }
 
-    public void addEvent(LastfmEvent event) {
-        events.add(event);
+    public void setLastfmData2(LastfmData lastfmData2) {
+        this.lastfmData2 = lastfmData2;
     }
 
-    public TreeSet<LastfmEvent> getEvents() {
-        return events;
+    public void setFacebookData1(FacebookData facebookData1) {
+        this.facebookData1 = facebookData1;
     }
 
-    public void setEvents(TreeSet<LastfmEvent> events)  {
-        this.events = events;
+    public void setFacebookData2(FacebookData facebookData2) {
+        this.facebookData2 = facebookData2;
     }
 
-    /**
-     * Compares two lastfm data objects and returns matching lastfm events.
-     * @param eventsToCompare Events to Compare
-     * @return Matching events
-     */
-    public LastfmData getMatchingEvents(LastfmData eventsToCompare) {
-        LastfmData matchingEvents = new LastfmData();
-        for(LastfmEvent event : events) {
-            if(eventsToCompare.getEvents().contains(event)) {
-                matchingEvents.getEvents().add(event);
-            }
+    public Data getMatchingData() {
+        Data data = new Data();
+        ArrayList<String> fbdata = facebookData1.match(facebookData2).toStringList();
+        ArrayList<String> lfmdata = lastfmData1.getMatchingEvents(lastfmData2).toStringList();
+        for(String match : fbdata) {
+            data.getItems().add(match);
         }
-        return matchingEvents;
-    }
-
-    public ArrayList<String> toStringList() {
-        ArrayList<String> data = new ArrayList<String>();
-        for(LastfmEvent event : events) {
-            data.add(event.getTitle());
+        for(String match : lfmdata) {
+            data.getItems().add(match);
         }
         return data;
     }
