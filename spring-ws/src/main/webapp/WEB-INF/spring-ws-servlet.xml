@@ -29,6 +29,10 @@ http://www.springframework.org/schema/oxm/spring-oxm-1.5.xsd http://www.springfr
         <property name="httpClient" ref="httpClient" />
     </bean>
 
+    <bean id="lastfmService" class="com.dare2date.businessservice.LastfmService">
+        <property name="authorisationService" ref="database" />
+    </bean>
+
     <bean id="httpClient" class="com.dare2date.utility.HttpClient">
     </bean>
 

@@ -26,6 +26,7 @@
  */
 package com.dare2date.businessservice;
 
+import com.dare2date.applicationservice.IAuthorisationService;
 import com.dare2date.domein.lastfm.LastfmData;
 import com.dare2date.externeservice.lastfm.ILastfmAPI;
 import com.dare2date.externeservice.lastfm.LastfmAPI;
@@ -33,6 +34,15 @@ import com.dare2date.externeservice.lastfm.LastfmAPI;
 public class LastfmService {
 
     private ILastfmAPI api;
+    private IAuthorisationService authorisationService;
+
+    public IAuthorisationService getAuthorisationService() {
+        return authorisationService;
+    }
+
+    public void setAuthorisationService(IAuthorisationService authorisationService) {
+        this.authorisationService = authorisationService;
+    }
 
     public LastfmService() {
         api = new LastfmAPI();
@@ -40,7 +50,7 @@ public class LastfmService {
 
     public LastfmData getLastfmGegevens(String username)   {
         LastfmData result = new LastfmData();
-        result.setEvents(api.getUserEventHistory(username));
+        result.setEvents(api.getUserEventHistory(authorisationService.getUsername(username,"lastfm")));
         return result;
     }
 }
