@@ -53,6 +53,9 @@ http://www.springframework.org/schema/oxm/spring-oxm-1.5.xsd http://www.springfr
 	<bean id="kenIkJouNietErgensVanService" class="com.dare2date.kenikjounietergensvan.webservice.KenIkJouNietErgensVanEndpoint">
 		<constructor-arg ref="marshaller" />
 		<constructor-arg ref="unmarshaller" />
+
+        <property name="facebookService" ref="facebookService" />
+        <property name="lastFmService" ref="lastfmService" />
 	</bean>
 
     <bean

@@ -26,6 +26,8 @@
  */
 package com.dare2date.kenikjounietergensvan.webservice;
 
+import com.dare2date.businessservice.FacebookService;
+import com.dare2date.businessservice.LastfmService;
 import org.springframework.oxm.Marshaller;
 import org.springframework.oxm.Unmarshaller;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
@@ -37,6 +39,27 @@ import java.util.ArrayList;
 public class KenIkJouNietErgensVanEndpoint {
     private Marshaller marshaller;
     private Unmarshaller unmarshaller;
+
+    private FacebookService facebookService;
+    private LastfmService lastFmService;
+
+    /**
+     * Set Facebook service.
+     *
+     * @param facebookService Facebook service.
+     */
+    public void setFacebookService(FacebookService facebookService) {
+        this.facebookService = facebookService;
+    }
+
+    /**
+     * Set LastFm service.
+     *
+     * @param lastFmService LastFm service.
+     */
+    public void setLastFmService(LastfmService lastFmService) {
+        this.lastFmService = lastFmService;
+    }
 
     public KenIkJouNietErgensVanEndpoint(Marshaller marshaller, Unmarshaller unmarshaller) {
         this.marshaller = marshaller;
