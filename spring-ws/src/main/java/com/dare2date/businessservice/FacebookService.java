@@ -26,6 +26,7 @@
  */
 package com.dare2date.businessservice;
 
+import com.dare2date.applicationservice.IAuthorisationService;
 import com.dare2date.domein.facebook.FacebookData;
 import com.dare2date.externeservice.facebook.IFacebookAPI;
 
@@ -33,8 +34,23 @@ import com.dare2date.externeservice.facebook.IFacebookAPI;
  * Facebook service.
  */
 public class FacebookService {
+    private IAuthorisationService authorisationService;
     private IFacebookAPI facebook;
 
+    /**
+     * Set the authorisation service.
+     *
+     * @param authorisationService Authorisation service.
+     */
+    public void setAuthorisationService(IAuthorisationService authorisationService) {
+        this.authorisationService = authorisationService;
+    }
+
+    /**
+     * Set the Facebook API implementation to use.
+     *
+     * @param facebook Facebook API implementation.
+     */
     public void setFacebook(IFacebookAPI facebook) {
         this.facebook = facebook;
     }
@@ -46,7 +62,7 @@ public class FacebookService {
      * @return FacebookData object with History, Education and events.
      */
     public FacebookData getFacebookMatch(String username) {
-        String accessToken = ""; //TODO: Get access token with username.
+        String accessToken = authorisationService.getUsername("username", "facebook");
 
         FacebookData data = new FacebookData();
 
