@@ -26,6 +26,8 @@ jdbc.password=password
 
 facebook.appid=YOUR_FACEBOOK_APP_ID
 facebook.appsecret=YOUR_FACEBOOK_APP_SECRET
+
+lastfm.apikey=YOUR_LASTFM_API_KEY
 ```
 
 Note the file service.properties is ignored by git. 
