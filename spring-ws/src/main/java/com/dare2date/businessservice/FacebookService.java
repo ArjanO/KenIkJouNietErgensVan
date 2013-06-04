@@ -66,9 +66,11 @@ public class FacebookService {
 
         FacebookData data = new FacebookData();
 
-        data.setEvents(facebook.getUsersEvents(accessToken));
-        data.setWorkHistory(facebook.getUsersWorkHistory(accessToken));
-        data.setEducationHistory(facebook.getUsersEducationHistory(accessToken));
+        if (accessToken != null) {
+            data.setEvents(facebook.getUsersEvents(accessToken));
+            data.setWorkHistory(facebook.getUsersWorkHistory(accessToken));
+            data.setEducationHistory(facebook.getUsersEducationHistory(accessToken));
+        }
 
         return data;
     }
