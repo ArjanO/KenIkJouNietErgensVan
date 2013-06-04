@@ -50,7 +50,13 @@ public class LastfmService {
 
     public LastfmData getLastfmGegevens(String username)   {
         LastfmData result = new LastfmData();
-        result.setEvents(api.getUserEventHistory(authorisationService.getUsername(username,"lastfm")));
+
+        String lastFmUsername = authorisationService.getUsername(username,"lastfm");
+
+        if (lastFmUsername != null) {
+            result.setEvents(api.getUserEventHistory(lastFmUsername));
+        }
+
         return result;
     }
 }
